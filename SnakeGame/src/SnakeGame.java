@@ -26,7 +26,7 @@ public class SnakeGame extends JPanel implements KeyListener, ActionListener {
 	private int apple_y;
 	private boolean leftDirection = false;
 	private boolean rightDirection = true;
-	private boolean upDirection = true;
+	private boolean upDirection = false;
 	private boolean downDirection = true;
 	private boolean inGame = true;
 	private Timer timer;
@@ -108,6 +108,7 @@ public class SnakeGame extends JPanel implements KeyListener, ActionListener {
 	private void locateApple() {
 		Random r = new Random();
 		apple_x = r.nextInt(RAND_POS + 1) * DOT_SIZE;
+
 		r = new Random();
 		apple_y = r.nextInt(RAND_POS + 1) * DOT_SIZE;
 	}
