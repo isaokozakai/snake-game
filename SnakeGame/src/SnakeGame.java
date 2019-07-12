@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,9 +25,9 @@ public class SnakeGame extends JPanel implements KeyListener, ActionListener {
 	private int apple_x;
 	private int apple_y;
 	private boolean leftDirection = false;
-	private boolean rightDirection = false;
-	private boolean upDirection = false;
-	private boolean downDirection = false;
+	private boolean rightDirection = true;
+	private boolean upDirection = true;
+	private boolean downDirection = true;
 	private boolean inGame = true;
 	private Timer timer;
 
@@ -105,11 +106,10 @@ public class SnakeGame extends JPanel implements KeyListener, ActionListener {
 	}
 
 	private void locateApple() {
-		int r = (int) (Math.random() * RAND_POS);
-		apple_x = ((r * DOT_SIZE));
-
-		r = (int) (Math.random() * RAND_POS);
-		apple_y = ((r * DOT_SIZE));
+		Random r = new Random();
+		apple_x = r.nextInt(RAND_POS + 1) * DOT_SIZE;
+		r = new Random();
+		apple_y = r.nextInt(RAND_POS + 1) * DOT_SIZE;
 	}
 
 	private void checkApple() {
@@ -201,9 +201,9 @@ public class SnakeGame extends JPanel implements KeyListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (inGame) {
+			move();
 			checkApple();
 			checkCollision();
-			move();
 		}
 		repaint();
 	}
