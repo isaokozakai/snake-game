@@ -1,5 +1,7 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,13 +15,12 @@ import javax.swing.Timer;
 public class SnakeGame extends JPanel implements KeyListener, ActionListener {
 	private static final int B_WIDTH = 500;
 	private static final int B_HEIGHT = 500;
-	private static final int ALL_DOTS = B_WIDTH * B_HEIGHT;
 	private static final int DOT_SIZE = 10;
 	private final int RAND_POS = 40;
 	private final int DELAY = 100;
 
-	private final int x[] = new int[ALL_DOTS];
-	private final int y[] = new int[ALL_DOTS];
+	private final int x[] = new int[B_WIDTH / DOT_SIZE];
+	private final int y[] = new int[B_HEIGHT / DOT_SIZE];
 
 	private int dots;
 	private int apple_x;
@@ -30,12 +31,18 @@ public class SnakeGame extends JPanel implements KeyListener, ActionListener {
 	private boolean downDirection = true;
 	private boolean inGame = true;
 	private Timer timer;
+	public static Dimension dim;
 
 	public static void main(String[] args) {
 		JFrame f = new JFrame();
-		SnakeGame snakeGame = new SnakeGame();
+		f.setResizable(false);
 		f.setSize(B_WIDTH, B_HEIGHT);
-		f.setVisible(true);
+        f.setVisible(true);
+		
+        dim = Toolkit.getDefaultToolkit().getScreenSize();
+        f.setLocation(dim.width / 2 - B_WIDTH / 2, dim.height / 2 - B_HEIGHT / 2);
+
+		SnakeGame snakeGame = new SnakeGame();
 		snakeGame.initGame();
 		f.add(snakeGame);
 		f.addKeyListener(snakeGame);
@@ -131,7 +138,6 @@ public class SnakeGame extends JPanel implements KeyListener, ActionListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		setBackground(Color.black);
-
 		for (int z = 0; z < dots; z++) {
 			if (z == 0) {
 				g.setColor(Color.yellow);
